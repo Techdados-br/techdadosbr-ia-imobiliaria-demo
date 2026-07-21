@@ -799,34 +799,59 @@ st.markdown(
             background: transparent !important;
         }}
 
-        /* Mantém visível o botão para reabrir o menu lateral */
+        /* Botão de reabertura do menu — compatível com versões local e Cloud */
+        [data-testid="collapsedControl"],
         [data-testid="stSidebarCollapsedControl"],
         [data-testid="stSidebarCollapseButton"] {{
             display: flex !important;
             visibility: visible !important;
             opacity: 1 !important;
-            z-index: 999999 !important;
+            z-index: 2147483647 !important;
         }}
 
+        [data-testid="collapsedControl"],
         [data-testid="stSidebarCollapsedControl"] {{
             position: fixed !important;
-            top: 10px !important;
-            left: 10px !important;
+            top: 12px !important;
+            left: 12px !important;
+            width: 46px !important;
+            height: 46px !important;
         }}
 
+        [data-testid="collapsedControl"] button,
         [data-testid="stSidebarCollapsedControl"] button,
-        [data-testid="stSidebarCollapseButton"] button {{
+        [data-testid="stSidebarCollapseButton"] button,
+        button[data-testid="collapsedControl"] {{
+            display: flex !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 46px !important;
+            height: 46px !important;
+            min-width: 46px !important;
+            min-height: 46px !important;
             background: {card} !important;
-            border: 1px solid {border} !important;
-            border-radius: 9px !important;
-            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.16) !important;
+            color: {text} !important;
+            border: 2px solid {border} !important;
+            border-radius: 11px !important;
+            box-shadow: 0 5px 16px rgba(15, 23, 42, 0.24) !important;
+            cursor: pointer !important;
         }}
 
+        [data-testid="collapsedControl"] svg,
         [data-testid="stSidebarCollapsedControl"] svg,
-        [data-testid="stSidebarCollapseButton"] svg {{
+        [data-testid="stSidebarCollapseButton"] svg,
+        button[data-testid="collapsedControl"] svg {{
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            width: 26px !important;
+            height: 26px !important;
             color: {text} !important;
             fill: {text} !important;
             stroke: {text} !important;
+            stroke-width: 2.5 !important;
         }}
 
         [data-testid="stAppViewContainer"] > .main {{
@@ -888,7 +913,7 @@ st.markdown(
         }}
 
         /* Seletor Claro/Escuro com bolinhas visíveis */
-        .st-key-tema_visual_imobiliaria_v35 div[role="radiogroup"] label > div:first-child {{
+        .st-key-tema_visual_imobiliaria_v36 div[role="radiogroup"] label > div:first-child {{
             display: flex !important;
             visibility: visible !important;
             opacity: 1 !important;
@@ -994,7 +1019,7 @@ tema_visual = st.sidebar.radio(
     "Tema visual",
     ["Claro", "Escuro"],
     index=0 if st.session_state.get("tema_visual_imobiliaria", st.session_state.get("tema_visual_imob", "Claro")) == "Claro" else 1,
-    key="tema_visual_imobiliaria_v35",
+    key="tema_visual_imobiliaria_v36",
     help="Escolha o tema para adaptar a visualização da tela."
 )
 
@@ -1089,7 +1114,7 @@ st.markdown(
         }}
 
         /* Seletor Claro/Escuro com bolinhas sempre visíveis */
-        .st-key-tema_visual_imobiliaria_v35 div[role="radiogroup"] label > div:first-child {{
+        .st-key-tema_visual_imobiliaria_v36 div[role="radiogroup"] label > div:first-child {{
             display: flex !important;
             visibility: visible !important;
             opacity: 1 !important;
@@ -1098,7 +1123,7 @@ st.markdown(
             margin-right: 7px !important;
         }}
 
-        .st-key-tema_visual_imobiliaria_v35 div[role="radiogroup"] label {{
+        .st-key-tema_visual_imobiliaria_v36 div[role="radiogroup"] label {{
             display: flex !important;
             align-items: center !important;
             padding-left: 0 !important;
