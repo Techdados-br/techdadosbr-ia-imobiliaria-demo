@@ -801,7 +801,7 @@ st.markdown(
 
         /* Menu lateral fixo no Streamlit Cloud.
            Evita que seja recolhido e desapareça sem botão para retornar. */
-        [data-testid="stSidebar"] {
+        [data-testid="stSidebar"] {{
             display: block !important;
             visibility: visible !important;
             opacity: 1 !important;
@@ -810,31 +810,31 @@ st.markdown(
             min-width: 220px !important;
             width: 220px !important;
             z-index: 9999 !important;
-        }
+        }}
 
-        [data-testid="stSidebar"] > div:first-child {
+        [data-testid="stSidebar"] > div:first-child {{
             display: block !important;
             visibility: visible !important;
             opacity: 1 !important;
             transform: translateX(0) !important;
             min-width: 220px !important;
             width: 220px !important;
-        }
+        }}
 
         /* Remove o botão de recolher para impedir o problema no Cloud */
         [data-testid="stSidebarCollapseButton"],
         [data-testid="stSidebarCollapsedControl"],
-        [data-testid="collapsedControl"] {
+        [data-testid="collapsedControl"] {{
             display: none !important;
             visibility: hidden !important;
             opacity: 0 !important;
             pointer-events: none !important;
-        }
+        }}
 
         /* Mantém o conteúdo principal alinhado com a barra lateral fixa */
-        [data-testid="stAppViewContainer"] > .main {
+        [data-testid="stAppViewContainer"] > .main {{
             margin-left: 0 !important;
-        }
+        }}
 
         [data-testid="stFileUploader"] section {{
             background: transparent !important;
