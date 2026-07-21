@@ -799,6 +799,36 @@ st.markdown(
             background: transparent !important;
         }}
 
+        /* Mantém visível o botão para reabrir o menu lateral */
+        [data-testid="stSidebarCollapsedControl"],
+        [data-testid="stSidebarCollapseButton"] {{
+            display: flex !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            z-index: 999999 !important;
+        }}
+
+        [data-testid="stSidebarCollapsedControl"] {{
+            position: fixed !important;
+            top: 10px !important;
+            left: 10px !important;
+        }}
+
+        [data-testid="stSidebarCollapsedControl"] button,
+        [data-testid="stSidebarCollapseButton"] button {{
+            background: {card} !important;
+            border: 1px solid {border} !important;
+            border-radius: 9px !important;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.16) !important;
+        }}
+
+        [data-testid="stSidebarCollapsedControl"] svg,
+        [data-testid="stSidebarCollapseButton"] svg {{
+            color: {text} !important;
+            fill: {text} !important;
+            stroke: {text} !important;
+        }}
+
         [data-testid="stAppViewContainer"] > .main {{
             background: {bg} !important;
             background-color: {bg} !important;
@@ -858,7 +888,7 @@ st.markdown(
         }}
 
         /* Seletor Claro/Escuro com bolinhas visíveis */
-        .st-key-tema_visual_imobiliaria_v34 div[role="radiogroup"] label > div:first-child {{
+        .st-key-tema_visual_imobiliaria_v35 div[role="radiogroup"] label > div:first-child {{
             display: flex !important;
             visibility: visible !important;
             opacity: 1 !important;
@@ -964,7 +994,7 @@ tema_visual = st.sidebar.radio(
     "Tema visual",
     ["Claro", "Escuro"],
     index=0 if st.session_state.get("tema_visual_imobiliaria", st.session_state.get("tema_visual_imob", "Claro")) == "Claro" else 1,
-    key="tema_visual_imobiliaria_v34",
+    key="tema_visual_imobiliaria_v35",
     help="Escolha o tema para adaptar a visualização da tela."
 )
 
@@ -1059,7 +1089,7 @@ st.markdown(
         }}
 
         /* Seletor Claro/Escuro com bolinhas sempre visíveis */
-        .st-key-tema_visual_imobiliaria_v34 div[role="radiogroup"] label > div:first-child {{
+        .st-key-tema_visual_imobiliaria_v35 div[role="radiogroup"] label > div:first-child {{
             display: flex !important;
             visibility: visible !important;
             opacity: 1 !important;
@@ -1068,7 +1098,7 @@ st.markdown(
             margin-right: 7px !important;
         }}
 
-        .st-key-tema_visual_imobiliaria_v34 div[role="radiogroup"] label {{
+        .st-key-tema_visual_imobiliaria_v35 div[role="radiogroup"] label {{
             display: flex !important;
             align-items: center !important;
             padding-left: 0 !important;
