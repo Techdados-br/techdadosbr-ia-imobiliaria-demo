@@ -799,8 +799,195 @@ st.markdown(
             background: transparent !important;
         }}
 
-        /* Menu lateral fixo no Streamlit Cloud.
-           Evita que seja recolhido e desapareça sem botão para retornar. */
+        [data-testid="stAppViewContainer"] > .main {{
+            background: {bg} !important;
+            background-color: {bg} !important;
+        }}
+
+        /* Sidebar */
+        section[data-testid="stSidebar"] {{
+            background: {sidebar_bg} !important;
+            border-right: 1px solid {border};
+        }}
+
+        section[data-testid="stSidebar"] * {{
+            color: {text} !important;
+        }}
+
+        section[data-testid="stSidebar"] label,
+        section[data-testid="stSidebar"] p,
+        section[data-testid="stSidebar"] span,
+        section[data-testid="stSidebar"] div {{
+            color: {text} !important;
+        }}
+
+        section[data-testid="stSidebar"] h1,
+        section[data-testid="stSidebar"] h2,
+        section[data-testid="stSidebar"] h3 {{
+            color: {text} !important;
+        }}
+
+        section[data-testid="stSidebar"] small {{
+            color: {muted} !important;
+        }}
+
+        /* Selectbox da sidebar */
+        section[data-testid="stSidebar"] [data-baseweb="select"] > div {{
+            background-color: #FFFFFF !important;
+            border-color: {border} !important;
+            border-radius: 9px !important;
+        }}
+
+        section[data-testid="stSidebar"] [data-baseweb="select"] span {{
+            color: #111827 !important;
+        }}
+
+        /* Menu lateral: esconder bolinhas apenas do primeiro radio */
+        section[data-testid="stSidebar"] div[data-testid="stRadio"]:first-of-type div[role="radiogroup"] label > div:first-child {{
+            display: none !important;
+        }}
+
+        section[data-testid="stSidebar"] div[data-testid="stRadio"]:first-of-type div[role="radiogroup"] label {{
+            padding-left: 0 !important;
+            margin-bottom: 7px !important;
+        }}
+
+        /* Aparência: manter bolinhas visíveis */
+        section[data-testid="stSidebar"] div[data-testid="stRadio"]:not(:first-of-type) div[role="radiogroup"] label > div:first-child {{
+            display: flex !important;
+        }}
+
+        /* Seletor Claro/Escuro com bolinhas visíveis */
+        .st-key-tema_visual_imobiliaria_v39 div[role="radiogroup"] label > div:first-child {{
+            display: flex !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            min-width: 16px !important;
+            margin-right: 7px !important;
+        }}
+
+        .td-hero-app {{
+            background: linear-gradient(135deg, {hero1}, {hero2});
+            border: 1px solid {border};
+            border-radius: 18px;
+            padding: 22px 24px;
+            box-shadow: 0 12px 28px rgba(15,23,42,.12);
+            margin-bottom: 24px;
+        }}
+
+        .td-hero-app-title {{
+            color: {text};
+            font-size: 31px;
+            font-weight: 850;
+            margin-bottom: 6px;
+        }}
+
+        .td-hero-app-subtitle {{
+            color: {muted};
+            font-size: 14px;
+            line-height: 1.45;
+        }}
+
+        /* Sidebar final - força fundo e textos */
+        [data-testid="stSidebar"],
+        [data-testid="stSidebar"] > div,
+        [data-testid="stSidebarContent"],
+        [data-testid="stSidebarUserContent"] {{
+            background: {sidebar_bg} !important;
+            background-color: {sidebar_bg} !important;
+        }}
+
+        [data-testid="stSidebar"] * {{
+            color: {text} !important;
+        }}
+
+        [data-testid="stSidebar"] [data-baseweb="select"],
+        [data-testid="stSidebar"] [data-baseweb="select"] * {{
+            color: #111827 !important;
+        }}
+
+        [data-testid="stSidebar"] [data-baseweb="select"] > div {{
+            background: #FFFFFF !important;
+            background-color: #FFFFFF !important;
+            border: 1px solid {border} !important;
+            border-radius: 9px !important;
+        }}
+
+        /* Esconder bolinhas somente do primeiro radio/menu */
+        [data-testid="stSidebar"] div[data-testid="stRadio"]:first-of-type div[role="radiogroup"] label > div:first-child {{
+            display: none !important;
+        }}
+
+        [data-testid="stSidebar"] div[data-testid="stRadio"]:first-of-type div[role="radiogroup"] label {{
+            padding-left: 0 !important;
+            margin-bottom: 7px !important;
+        }}
+
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+st.markdown(
+    """
+    <div class="td-hero-app">
+        <div class="td-hero-app-title">🏠 TechDadosBR Inteligência Imobiliária</div>
+        <div class="td-hero-app-subtitle">
+            Análise de carteira imobiliária com indicadores financeiros, ocupação, inadimplência, riscos e relatório executivo.
+        </div>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
+# ==================================================
+# MENU
+# ==================================================
+
+pagina = st.sidebar.radio(
+    "Menu",
+    [
+        "📊 Executivo",
+        "🏢 Gestão Carteira",
+        "📈 Comparativo",
+        "📄 Relatório"
+    ]
+)
+
+# ==========================================
+# APARÊNCIA
+# ==========================================
+
+st.sidebar.markdown("### Aparência")
+
+tema_visual = st.sidebar.radio(
+    "Tema visual",
+    ["Claro", "Escuro"],
+    index=0 if st.session_state.get("tema_visual_imobiliaria", st.session_state.get("tema_visual_imob", "Claro")) == "Claro" else 1,
+    key="tema_visual_imobiliaria_v39",
+    help="Escolha o tema para adaptar a visualização da tela."
+)
+
+st.session_state["tema_visual_imob"] = tema_visual
+st.session_state["tema_visual_imobiliaria"] = tema_visual
+
+# CSS aplicado depois da escolha do tema para corrigir a sidebar
+if tema_visual == "Escuro":
+    sidebar_bg_final = "#17223A"
+    sidebar_text_final = "#F8FAFC"
+    sidebar_muted_final = "#CBD5E1"
+    sidebar_border_final = "#334155"
+else:
+    sidebar_bg_final = "#F3F6FA"
+    sidebar_text_final = "#0F172A"
+    sidebar_muted_final = "#475569"
+    sidebar_border_final = "#CBD5E1"
+
+st.markdown(
+    f"""
+    <style>
+        /* Menu lateral fixo no Streamlit Cloud */
+        section[data-testid="stSidebar"],
         [data-testid="stSidebar"] {{
             display: block !important;
             visibility: visible !important;
@@ -812,6 +999,7 @@ st.markdown(
             z-index: 9999 !important;
         }}
 
+        section[data-testid="stSidebar"] > div:first-child,
         [data-testid="stSidebar"] > div:first-child {{
             display: block !important;
             visibility: visible !important;
@@ -821,7 +1009,7 @@ st.markdown(
             width: 220px !important;
         }}
 
-        /* Remove o botão de recolher para impedir o problema no Cloud */
+        /* Impede que o menu seja recolhido no ambiente publicado */
         [data-testid="stSidebarCollapseButton"],
         [data-testid="stSidebarCollapsedControl"],
         [data-testid="collapsedControl"] {{
@@ -831,11 +1019,142 @@ st.markdown(
             pointer-events: none !important;
         }}
 
-        /* Mantém o conteúdo principal alinhado com a barra lateral fixa */
-        [data-testid="stAppViewContainer"] > .main {{
-            margin-left: 0 !important;
+        /* Sidebar - fundo atualizado depois da escolha do tema */
+        section[data-testid="stSidebar"],
+        section[data-testid="stSidebar"] > div,
+        section[data-testid="stSidebar"] div[data-testid="stSidebarContent"],
+        section[data-testid="stSidebar"] div[data-testid="stSidebarUserContent"] {{
+            background: {sidebar_bg_final} !important;
+            background-color: {sidebar_bg_final} !important;
         }}
 
+        /* Textos da sidebar */
+        section[data-testid="stSidebar"] *,
+        section[data-testid="stSidebar"] label,
+        section[data-testid="stSidebar"] p,
+        section[data-testid="stSidebar"] span,
+        section[data-testid="stSidebar"] div,
+        section[data-testid="stSidebar"] h1,
+        section[data-testid="stSidebar"] h2,
+        section[data-testid="stSidebar"] h3 {{
+            color: {sidebar_text_final} !important;
+        }}
+
+        section[data-testid="stSidebar"] small {{
+            color: {sidebar_muted_final} !important;
+        }}
+
+        /* Selectbox dos filtros */
+        section[data-testid="stSidebar"] [data-baseweb="select"] > div {{
+            background-color: #FFFFFF !important;
+            border: 1px solid {sidebar_border_final} !important;
+            border-radius: 9px !important;
+        }}
+
+        section[data-testid="stSidebar"] [data-baseweb="select"] span,
+        section[data-testid="stSidebar"] [data-baseweb="select"] div {{
+            color: #111827 !important;
+        }}
+
+        /* Esconder bolinhas somente do menu principal */
+        section[data-testid="stSidebar"] div[data-testid="stRadio"]:first-of-type div[role="radiogroup"] label > div:first-child {{
+            display: none !important;
+        }}
+
+        section[data-testid="stSidebar"] div[data-testid="stRadio"]:first-of-type div[role="radiogroup"] label {{
+            padding-left: 0 !important;
+            margin-bottom: 7px !important;
+        }}
+
+        /* Aparência mantém bolinhas */
+        section[data-testid="stSidebar"] div[data-testid="stRadio"]:not(:first-of-type) div[role="radiogroup"] label > div:first-child {{
+            display: flex !important;
+        }}
+
+        /* Menu lateral em uma única linha */
+        section[data-testid="stSidebar"] {{
+            min-width: 220px !important;
+            width: 220px !important;
+        }}
+
+        section[data-testid="stSidebar"] > div:first-child {{
+            min-width: 220px !important;
+            width: 220px !important;
+        }}
+
+        section[data-testid="stSidebar"] div[role="radiogroup"] label {{
+            white-space: nowrap !important;
+        }}
+
+        section[data-testid="stSidebar"] div[role="radiogroup"] label p,
+        section[data-testid="stSidebar"] div[role="radiogroup"] label span {{
+            white-space: nowrap !important;
+        }}
+
+        /* Seletor Claro/Escuro com bolinhas sempre visíveis */
+        .st-key-tema_visual_imobiliaria_v39 div[role="radiogroup"] label > div:first-child {{
+            display: flex !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            width: auto !important;
+            min-width: 16px !important;
+            margin-right: 7px !important;
+        }}
+
+        .st-key-tema_visual_imobiliaria_v39 div[role="radiogroup"] label {{
+            display: flex !important;
+            align-items: center !important;
+            padding-left: 0 !important;
+            margin-bottom: 5px !important;
+        }}
+
+        /* Abas visíveis nos dois temas */
+        [data-testid="stTabs"] [role="tab"],
+        [data-baseweb="tab-list"] [role="tab"] {{
+            color: {sidebar_muted_final} !important;
+            -webkit-text-fill-color: {sidebar_muted_final} !important;
+            opacity: 1 !important;
+            font-weight: 750 !important;
+        }}
+
+        [data-testid="stTabs"] [role="tab"] *,
+        [data-baseweb="tab-list"] [role="tab"] * {{
+            color: {sidebar_muted_final} !important;
+            -webkit-text-fill-color: {sidebar_muted_final} !important;
+            opacity: 1 !important;
+        }}
+
+        [data-testid="stTabs"] [role="tab"][aria-selected="true"],
+        [data-testid="stTabs"] [role="tab"][aria-selected="true"] *,
+        [data-baseweb="tab-list"] [role="tab"][aria-selected="true"],
+        [data-baseweb="tab-list"] [role="tab"][aria-selected="true"] * {{
+            color: #FF4B4B !important;
+            -webkit-text-fill-color: #FF4B4B !important;
+            opacity: 1 !important;
+        }}
+
+        /* Botões legíveis no tema escuro */
+        .stButton > button,
+        .stDownloadButton > button {{
+            background: #2563EB !important;
+            color: #FFFFFF !important;
+            border: 1px solid #3B82F6 !important;
+        }}
+
+        .stButton > button *,
+        .stDownloadButton > button * {{
+            color: #FFFFFF !important;
+            -webkit-text-fill-color: #FFFFFF !important;
+        }}
+
+        .stButton > button:disabled,
+        .stDownloadButton > button:disabled {{
+            background: {"#334155" if tema_visual == "Escuro" else "#CBD5E1"} !important;
+            color: {"#CBD5E1" if tema_visual == "Escuro" else "#475569"} !important;
+            opacity: 1 !important;
+        }}
+
+        /* Upload estável nos dois temas */
         [data-testid="stFileUploader"] section {{
             background: transparent !important;
             border: 1px solid {sidebar_border_final} !important;
